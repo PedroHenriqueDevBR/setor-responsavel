@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend/src/modules/home/widgets/presentation_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -48,7 +49,7 @@ class _HomePageState extends State<HomePage> {
         body: const TabBarView(
           dragStartBehavior: DragStartBehavior.down,
           children: [
-            Icon(Icons.directions_car),
+            PresentationPage(),
             Icon(Icons.directions_transit),
             Icon(Icons.directions_bike),
             Icon(Icons.directions_bike),
