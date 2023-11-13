@@ -5,9 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "frontend",
+            "name": "default",
             "request": "launch",
             "type": "dart"
+        },
+        {
+            "name": "web",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "-d",
+                "chrome"
+            ]
         },
         {
             "name": "frontend (profile mode)",
