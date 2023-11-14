@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock title %}
+
+{% block body %}
+
+<div uk-grid class="uk-grid-divider uk-margin-remove" style="height: 100vh;">
+    <div class="uk-width-1-2 uk-flex uk-flex-middle">
+        <h1>Imagem</h1>
+    </div>
+
+    <div class="uk-width-1-2 uk-flex uk-flex-center uk-flex-column">
+        <h1>Enter with your credentials</h1>
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="uk-margin">
+                <input class="uk-input" type="text" placeholder="Username" aria-label="Username" name="username">
+            </div>
+            <div class="uk-margin">
+                <input class="uk-input" type="password" placeholder="Password" aria-label="Password" name="password">
+            </div>
+            <button class="uk-button uk-button-primary">Submit</button>
+        </form>
+    </div>
+</div>
+
+
+{% endblock body %}
