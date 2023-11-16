@@ -7,11 +7,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{% static 'css/uikit.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}" />
     <script defer src="{% static 'js/uikit.min.js' %}"></script>
     <script defer src="{% static 'js/uikit-icons.min.js' %}"></script>
 </head>
 
 <body>
+
+    {% if messages %}
+    <ul class="messages" style="position: fixed; bottom: 10px; right: 10px;">
+        {% for message in messages %}
+        <div {% if message.tags %} class="{{ message.tags }}" {% endif %} uk-alert>
+            <a href class="uk-alert-close" uk-close></a>
+            <p>{{ message }}</p>
+        </div>
+        {% endfor %}
+    </ul>
+    {% endif %}
 
     {% block body %}
     {% endblock body %}

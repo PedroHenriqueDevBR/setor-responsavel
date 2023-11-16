@@ -1,7 +1,8 @@
 from django.contrib import auth
 from django.views.generic import View
-from django.shortcuts import render, HttpResponseRedirect
-from django.shortcuts import redirect
+from django.contrib import messages
+from django.shortcuts import redirect, render
+from apps.core.utils import alert_levels
 
 
 class Login(View):
@@ -19,5 +20,18 @@ class Login(View):
                 auth.login(request, user)
                 return redirect("index")
 
-        else:
-            return HttpResponseRedirect("Invalid username or password")
+        messages.add_message(
+            request,
+            messages.ERROR,
+            "Invalid credencials",
+            extra_tags=alert_levels.DANGER,
+        )
+        return redirect("login")
+
+
+class Logout(View):
+    def get(self, request):
+        user = request.user
+        if user is not None and str(user) != "AnonymousUser":
+            auth.logout(request)
+        return redirect("login")
