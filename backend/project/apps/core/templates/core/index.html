@@ -1,3 +1,16 @@
-{% extends 'base.html' %}
+{% extends 'base_menu.html' %}
+{% load static %}
 
 {% block title %} Home {% endblock title %}
+
+{% block content %}
+
+<div class="uk-flex uk-flex-center uk-flex-middle uk-flex-column uk-margin-top">
+        <img src="{% static 'images/logo.png' %}" alt="logo" width="250" height="250">
+        <div class="uk-text-center uk-margin-top">
+            <h1 class="uk-text-uppercase uk-text-bold">Setor Responsável</h1>
+            <p>Plantando uma ideia para o bem de todos.</p>
+        </div>
+    </div>
+
+{% endblock content %}
