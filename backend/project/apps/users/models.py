@@ -5,6 +5,9 @@ from django.contrib.auth.models import User
 class Subsidiary(models.Model):
     name = models.CharField(max_length=250)
 
+    def __str__(self) -> str:
+        return self.name
+
 
 class Sector(models.Model):
     name = models.CharField(max_length=250)
@@ -16,11 +19,14 @@ class Sector(models.Model):
         blank=True,
     )
 
+    def __str__(self) -> str:
+        return self.name
+
 
 class Employee(models.Model):
     contact = models.CharField(max_length=150)
     identifier = models.CharField(max_length=150)
-    sector = models.OneToOneField(
+    sector = models.ForeignKey(
         Sector,
         on_delete=models.SET_NULL,
         related_name="employeers",
@@ -34,3 +40,6 @@ class Employee(models.Model):
         null=True,
         blank=True,
     )
+
+    def __str__(self) -> str:
+        return self.identifier
