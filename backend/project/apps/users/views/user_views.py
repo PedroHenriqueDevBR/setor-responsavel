@@ -1,4 +1,3 @@
-from django.contrib import auth
 from django.views.generic import View
 from django.contrib import messages
 from django.shortcuts import redirect, render
@@ -41,7 +40,7 @@ class ListUserView(View):
             request,
             messages.SUCCESS,
             "Colaborador adicionado",
-            extra_tags=alert_levels.WARNING,
+            extra_tags=alert_levels.SUCCESS,
         )
         return redirect("users")
 

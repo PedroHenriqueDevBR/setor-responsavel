@@ -1,0 +1,15 @@
+<form method="post">
+    {% csrf_token %}
+
+    <fieldset class="uk-fieldset">
+        <legend class="uk-legend">Dados gerais</legend>
+
+        <div class="uk-margin">
+            <input class="uk-input" type="text" placeholder="Nome" aria-label="Input" name="name"
+                id="name">
+        </div>
+    </fieldset>
+
+    <button class="uk-button" type="submit">Cadastrar</button>
+    <button class="uk-modal-close uk-button" type="button">Cancelar</button>
+</form>
