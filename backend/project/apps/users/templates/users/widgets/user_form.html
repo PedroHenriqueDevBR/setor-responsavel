@@ -5,8 +5,7 @@
         <legend class="uk-legend">Dados pessoais</legend>
 
         <div class="uk-margin">
-            <input class="uk-input" type="text" placeholder="Nome" aria-label="Input" name="first_name"
-                id="first_name">
+            <input class="uk-input" type="text" placeholder="Nome" aria-label="Input" name="first_name" id="first_name">
         </div>
 
         <div class="uk-margin">
@@ -33,8 +32,15 @@
 
         <div class="uk-margin">
             <select class="uk-select" aria-label="Select" name="sector" id="sector">
-                <option value="1">Setor 01</option>
-                <option value="2">Setor 02</option>
+                {% for subsidiary in subsidiaries %}
+                <optgroup label="{{ subsidiary.name }}">
+                    {% for sector in subsidiary.sectors.all %}
+                    <option value="{{ sector.id }}">{{ sector.name }}</option>
+                    {% endfor %}
+                </optgroup>
+                {% empty %}
+                <option value="0">---</option>
+                {% endfor %}
             </select>
         </div>
     </fieldset>
@@ -43,13 +49,12 @@
         <legend class="uk-legend">Acesso</legend>
 
         <div class="uk-margin">
-            <input class="uk-input" type="text" placeholder="Senha" aria-label="Input" name="password"
-                id="password">
+            <input class="uk-input" type="text" placeholder="Senha" aria-label="Input" name="password" id="password">
         </div>
 
         <div class="uk-margin">
-            <input class="uk-input" type="text" placeholder="Repetir senha" aria-label="Input"
-                name="repeat_password" id="repeat_password">
+            <input class="uk-input" type="text" placeholder="Repetir senha" aria-label="Input" name="repeat_password"
+                id="repeat_password">
         </div>
     </fieldset>
     <button class="uk-button" type="submit">Cadastrar</button>

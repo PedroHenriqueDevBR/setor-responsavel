@@ -14,16 +14,21 @@
         </div>
     </div>
 
-    <hr class="uk-divider-icon">
+    <hr class="uk-divider-icon full-width">
 
     <dl class="uk-description-list uk-description-list-divider full-width">
         {% for employee in employeers %}
         {% if employee.user %}
         <div class="uk-flex">
             <span uk-icon="icon: user; ratio: 2"></span>
-            <div class="uk-margin-left">
-                <dt>{{ employee.identifier }} - {{ employee.user.get_full_name }}</dt>
-                <dd>{{ employee.sector|default:'Sem setor' }}</dd>
+            <div class="uk-margin-left full-width">
+                <div class="uk-flex uk-flex-between">
+                    <div>
+                        <dt>{{ employee.identifier }} - {{ employee.user.get_full_name }}</dt>
+                        <dd>{{ employee.sector|default:'Sem setor' }}</dd>
+                    </div>
+                    <a href="{% url 'user_edit' employee.pk %}" class="uk-button uk-button-default"><span uk-icon="icon: pencil"></span></a>
+                </div>
             </div>
         </div>
         <hr>
