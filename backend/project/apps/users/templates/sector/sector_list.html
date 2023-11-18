@@ -7,19 +7,40 @@
 
 <div class="uk-flex uk-flex-center uk-flex-middle uk-flex-column uk-margin-top">
 
-    <div class="uk-flex uk-flex-between full-width">
-        <h1>Setores da unidade {{ subsidiary }}</h1>
-        <div>
-            <button uk-toggle="target: #my-id" type="button" class="uk-button">Adicionar</button>
+    <div class="uk-card uk-card-body uk-width-1-1@m secondary-color on-primary-color">
+        <div class="uk-card-badge uk-label on-primary-color primary-color">Unidade</div>
+        <div class="uk-flex">
+            <span uk-icon="icon: location; ratio: 2"></span>
+            <div class="uk-margin-left">
+                <h3 class="uk-card-title">
+                    <a href="" class="on-primary-color">{{ subsidiary.name }}</a>
+                </h3>
+                <p>{{ subsidiary.sectors.count }} setores vinculados</p>
+            </div>
         </div>
     </div>
 
     <hr class="uk-divider-icon">
 
+    <div class="uk-flex uk-flex-between full-width">
+        <div class="uk-flex uk-flex-middle">
+            <div>
+                <a href="{% url 'subsidiaries' %}" class="uk-button uk-button-default uk-margin-right">
+                    <span uk-icon="icon: chevron-left"></span>
+                </a>
+            </div>
+            <h1 class="uk-margin-remove">Setores</h1>
+        </div>
+        <div>
+            <button uk-toggle="target: #my-id" type="button" class="uk-button">Adicionar</button>
+        </div>
+    </div>
+
+
     <dl class="uk-description-list uk-description-list-divider full-width">
         {% for sector in sectors %}
         <div class="uk-flex">
-            <span uk-icon="icon: user; ratio: 2"></span>
+            <span uk-icon="icon: thumbnails; ratio: 2"></span>
             <div class="uk-margin-left">
                 <dt>{{ sector.name }}</dt>
                 <dd>{{ sector.employeers.count }} servidores vinculados</dd>
