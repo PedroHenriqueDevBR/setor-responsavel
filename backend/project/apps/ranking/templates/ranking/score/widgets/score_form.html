@@ -1,0 +1,19 @@
+<form method="post">
+    {% csrf_token %}
+
+    <fieldset class="uk-fieldset">
+
+        <div class="uk-margin">
+            <input class="uk-input" type="text" placeholder="Nome" aria-label="Input" name="name"
+                id="name" value="{{ name }}">
+        </div>
+
+        <div class="uk-margin">
+            <input class="uk-input" type="number" placeholder="Quantidade" aria-label="Input" name="quantity"
+                id="quantity" value="{{ quantity }}">
+        </div>
+    </fieldset>
+
+    <button class="uk-button" type="submit">Cadastrar</button>
+    <button class="uk-modal-close uk-button" type="button">Cancelar</button>
+</form>
