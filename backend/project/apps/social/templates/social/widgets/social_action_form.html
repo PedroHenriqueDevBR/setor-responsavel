@@ -1,0 +1,24 @@
+<form method="post">
+    {% csrf_token %}
+
+    <fieldset class="uk-fieldset">
+
+        <div class="uk-margin">
+            <input class="uk-input" type="text" placeholder="Titulo" aria-label="Input" name="title"
+                id="title" value="{{ title }}">
+        </div>
+
+        <div class="uk-margin">
+            <input class="uk-input" type="text" placeholder="Descrição" aria-label="Input" name="desctiption"
+                id="desctiption" value="{{ desctiption }}">
+        </div>
+
+        <div class="uk-margin">
+            <input class="uk-input" type="number" placeholder="Multiplicador" aria-label="Input" name="multiplier"
+                id="multiplier" value="{{ multiplier }}" min="1">
+        </div>
+    </fieldset>
+
+    <button class="uk-button" type="submit">Cadastrar</button>
+    <button class="uk-modal-close uk-button" type="button">Cancelar</button>
+</form>
