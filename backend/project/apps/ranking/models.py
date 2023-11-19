@@ -53,3 +53,8 @@ class Action(models.Model):
         blank=True,
         related_name="score_actions",
     )
+
+
+class Award(models.Model):
+    title = models.CharField(max_length=150)
+    description = models.CharField(max_length=500)

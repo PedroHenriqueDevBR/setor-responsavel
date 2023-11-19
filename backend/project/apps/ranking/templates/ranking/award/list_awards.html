@@ -1,14 +1,14 @@
 {% extends 'base_menu.html' %}
 {% load static %}
 
-{% block title %} {{ title }} {% endblock title %}
+{% block title %} Premiações {% endblock title %}
 
 {% block content %}
 
 <div class="uk-flex uk-flex-center uk-flex-middle uk-flex-column uk-margin-top">
 
     <div class="uk-flex uk-flex-between full-width">
-        <h1>{{ title }}</h1>
+        <h1>Premiações</h1>
         <div>
             <button uk-toggle="target: #my-id" type="button" class="uk-button">Adicionar</button>
         </div>
@@ -17,29 +17,25 @@
     <hr class="uk-divider-icon full-width">
 
     <dl class="uk-description-list uk-description-list-divider full-width">
-        {% for score in scores %}
+        {% for award in awards %}
         <div class="uk-flex">
-            <span {% if title == 'Penalidades' %}
-            uk-icon="icon: arrow-down; ratio: 2"></span>
-            {% else %}
-            uk-icon="icon: arrow-up; ratio: 2"></span>
-            {% endif %}
+            <span uk-icon="icon: happy; ratio: 2"></span>
             <div class="uk-margin-left">
-                <dt><a href="">{{ score.name }}</a></dt>
-                <dd>{{ score.quantity }} pontos por ação</dd>
+                <dt><a href="">{{ award.title }}</a></dt>
+                <dd>{{ award.description }}</dd>
             </div>
         </div>
         <hr>
         {% empty %}
-        <label>Nenhuma pontuação cadastrada!</label>
+        <label>Nenhuma premiação cadastrada!</label>
         {% endfor %}
     </dl>
 </div>
 
 <div id="my-id" uk-modal>
     <div class="uk-modal-dialog uk-modal-body">
-        <h2 class="uk-modal-title">Adicionar {{ title }}</h2>
-        {% include 'ranking/score/widgets/score_form.html' %}
+        <h2 class="uk-modal-title">Adicionar premiação</h2>
+        {% include 'ranking/award/widgets/award_form.html' %}
     </div>
 </div>
 

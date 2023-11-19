@@ -2,26 +2,25 @@ from django.views.generic import View
 from django.contrib import messages
 from django.shortcuts import redirect, render
 from apps.core.utils import alert_levels
-from apps.social.models import SocialAction
+from apps.ranking.models import Award
 
 
-class ListSocialActionsView(View):
+class ListAwardsView(View):
     def get(self, request):
-        template_name = "social/list_social_actions.html"
-        actions = SocialAction.objects.all()
-        context = {"actions": actions}
+        template_name = "ranking/award/list_awards.html"
+        awards = Award.objects.all()
+        context = {"awards": awards}
         return render(request, template_name, context)
 
     def post(self, request):
-        template_name = "social/list_social_actions.html"
-        actions = SocialAction.objects.all()
-        context = {"actions": actions}
+        template_name = "ranking/award/list_awards.html"
+        awards = Award.objects.all()
+        context = {"awards": awards}
         data = request.POST
 
         if not self.valid_data(dt=data):
             context["title"] = data.get("title")
             context["description"] = data.get("description")
-            context["multiplier"] = data.get("multiplier")
 
             messages.add_message(
                 request,
@@ -32,51 +31,46 @@ class ListSocialActionsView(View):
 
             return render(request, template_name, context)
 
-        if self.registered_social_action(data=data):
+        if self.is_registered_award(data=data):
             context["title"] = data.get("title")
             context["description"] = data.get("description")
-            context["multiplier"] = data.get("multiplier")
 
             messages.add_message(
                 request,
                 messages.WARNING,
-                "Ação social já registrada",
+                "Premiação já registrada",
                 extra_tags=alert_levels.WARNING,
             )
 
             return render(request, template_name, context)
 
-        self.register_social_action(data)
+        self.register_award(data)
         messages.add_message(
             request,
             messages.SUCCESS,
-            "Ação social adicionada",
+            "Premiação adicionada",
             extra_tags=alert_levels.SUCCESS,
         )
-        return redirect("social_actions")
+        return redirect("awards")
 
-    def register_social_action(self, data):
+    def register_award(self, data):
         title = data.get("title")
         description = data.get("description")
-        multiplier = data.get("multiplier")
 
-        SocialAction.objects.create(
+        Award.objects.create(
             title=title,
             description=description,
-            multiplier=multiplier,
         )
 
-    def registered_social_action(self, data):
-        actions_query = SocialAction.objects.filter(title=data.get("title"))
-        if actions_query.exists():
+    def is_registered_award(self, data):
+        awards_query = Award.objects.filter(title=data.get("title"))
+        if awards_query.exists():
             return True
         return False
 
     def valid_data(self, dt):
-        if (
-            (dt.get("title") is None or dt.get("title") == "")
-            or (dt.get("description") is None or dt.get("description") == "")
-            or (dt.get("multiplier") is None or dt.get("multiplier") == "")
+        if (dt.get("title") is None or dt.get("title") == "") or (
+            dt.get("description") is None or dt.get("description") == ""
         ):
             return False
         return True

@@ -8,10 +8,11 @@
 
         <ul class="uk-nav uk-nav-default">
             <li class="uk-active"><a href="{% url 'index' %}">Home</a></li>
+            
             <li class="uk-nav-header">Módulos</li>
             <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: list"></span> Ranking</a></li>
             <li class="uk-nav-divider"></li>
-            <li><a href="{% url 'subsidiaries' %}"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Unidades</a></li>
+            <li><a href="{% url 'subsidiaries' %}"><span class="uk-margin-small-right" uk-icon="icon: location"></span> Unidades</a></li>
             <li class="uk-nav-divider"></li>
             <li><a href="{% url 'increases' %}"><span class="uk-margin-small-right" uk-icon="icon: arrow-up"></span> Pontuações</a></li>
             <li class="uk-nav-divider"></li>
@@ -22,7 +23,7 @@
                 <ul class="uk-nav-sub">
                     <li><a href="{% url 'users' %}">Gerenciar usuários</a></li>
                     <li><a href="{% url 'social_actions' %}">Ações sociais</a></li>
-                    <li><a href="#">Gerenciar prêmios</a></li>
+                    <li><a href="{% url 'awards' %}">Gerenciar prêmios</a></li>
                 </ul>
             </li>
 
