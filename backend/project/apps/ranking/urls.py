@@ -1,5 +1,5 @@
 from django.urls import path
-from apps.ranking.views import score_views, award_views
+from apps.ranking.views import score_views, award_views, ranking_views
 
 urlpatterns = [
     # Scores
@@ -17,5 +17,10 @@ urlpatterns = [
         "award",
         award_views.ListAwardsView.as_view(),
         name="awards",
+    ),
+    path(
+        "all",
+        ranking_views.ListAllRankingsView.as_view(),
+        name="rankings",
     ),
 ]

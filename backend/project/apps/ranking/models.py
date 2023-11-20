@@ -21,6 +21,7 @@ class Ranking(models.Model):
     description = models.TextField()
     initial_date = models.DateField()
     final_date = models.DateField()
+    done = models.BooleanField(default=False)
     social = models.OneToOneField(
         SocialAction,
         on_delete=models.SET_NULL,
