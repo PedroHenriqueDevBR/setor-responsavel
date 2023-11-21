@@ -16,18 +16,30 @@ class Scores(models.Model):
     identifier = models.IntegerField(choices=SCORE_TYPE)
 
 
+class Award(models.Model):
+    title = models.CharField(max_length=150)
+    description = models.CharField(max_length=500)
+
+
 class Ranking(models.Model):
     title = models.CharField(max_length=250)
     description = models.TextField()
     initial_date = models.DateField()
     final_date = models.DateField()
     done = models.BooleanField(default=False)
-    social = models.OneToOneField(
+    social = models.ForeignKey(
         SocialAction,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name="rankig",
+        related_name="social_rankigs",
+    )
+    award = models.ForeignKey(
+        Award,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="award_rankings",
     )
 
 
@@ -54,8 +66,3 @@ class Action(models.Model):
         blank=True,
         related_name="score_actions",
     )
-
-
-class Award(models.Model):
-    title = models.CharField(max_length=150)
-    description = models.CharField(max_length=500)
