@@ -1,0 +1,63 @@
+{% extends 'base_menu.html' %}
+{% load static %}
+
+{% block title %} Ranking {% endblock title %}
+
+{% block content %}
+
+<div class="uk-flex uk-flex-center uk-flex-middle uk-flex-column uk-margin-top">
+
+    <div class="uk-flex uk-flex-between full-width">
+        <h1>
+            Ranking atual -
+            <a href="{% url 'rankings' %}">Listar todos</a>
+        </h1>
+        <div>
+            <button uk-toggle="target: #my-id" type="button" class="uk-button">Adicionar</button>
+        </div>
+    </div>
+
+    <hr class="uk-divider-icon full-width">
+
+
+    {% if actions.count > 0 %}
+    <h3 class="uk-card-title">Ações (Pontuações X Penalidades)</h3>
+    <div class="uk-card uk-card-default uk-card-body uk-width-1-1@m uk-margin-bottom">
+        {% for action in actions %}
+        <dl class="uk-description-list uk-description-list-divider">
+            <dt>{{ action.sector }}</dt>
+            <dd>{{ action.score }} ponto(s)</dd>
+        </dl>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if subsidiaries.count > 0 %}
+    <h3 class="uk-card-title">Setores envolvidos</h3>
+    {% for subsidiary in subsidiaries %}
+    <div class="uk-card uk-card-default uk-card-body uk-width-1-1@m uk-margin-bottom">
+        <div class="uk-card-badge uk-label">Unidade</div>
+        <h3 class="uk-card-title">{{ subsidiary.name }}</h3>
+
+        <dl class="uk-description-list uk-description-list-divider">
+            {% for sector in subsidiary.sectors.all %}
+            <dt>{{ sector.name }}</dt>
+            <dd>{{ sector.employeers.count }} colaborador(es)</dd>
+            {% empty %}
+            Nenhum setor disponível
+            {% endfor %}
+        </dl>
+    </div>
+    {% endfor %}
+    {% endif %}
+</div>
+</div>
+
+<div id="my-id" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body">
+        <h2 class="uk-modal-title">Adicionar ação</h2>
+        {% include 'ranking/ranking/widgets/ranking_form.html' %}
+    </div>
+</div>
+
+{% endblock content %}

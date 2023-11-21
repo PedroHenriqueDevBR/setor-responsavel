@@ -5,7 +5,7 @@ urlpatterns = [
     # Ranking
     path(
         "",
-        ranking_views.ListAllRankingsView.as_view(),
+        ranking_views.CurrentRanking.as_view(),
         name="current_ranking",
     ),
     path(
