@@ -1,0 +1,39 @@
+/* Colors */
+
+.primary-color {
+    background-color: #413620 !important;
+}
+
+.secondary-color {
+    background-color: #4E6355 !important;
+}
+
+.secondary-container-color {
+    background-color: #D1E8D6 !important;
+}
+
+.on-primary-color {
+    color: #FFFFFF !important;
+}
+
+.on-secondary-color {
+    color: #fff !important;
+}
+
+/* Utils */
+
+.full-width {
+    width: 100%;
+}
+
+.full-height {
+    height: 100%;
+}
+
+.force-full-width {
+    width: 100vw;
+}
+
+.force-full-height {
+    min-height: 100vh;
+}

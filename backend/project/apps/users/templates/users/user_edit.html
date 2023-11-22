@@ -1,0 +1,22 @@
+{% extends 'base_menu.html' %}
+{% load static %}
+
+{% block title %} Usuário {{ employee.user.get_full_name }} {% endblock title %}
+
+{% block content %}
+
+<div class="uk-flex uk-flex-center uk-flex-middle uk-flex-column uk-margin-top uk-margin-bottom">
+
+    <div class="uk-flex uk-flex-between full-width">
+        <h1>Editar {{ employee.user.get_full_name }}</h1>
+        <div>
+            <a href="{% url 'users' %}" type="button" class="uk-button uk-button-default">Cancelar</a>
+        </div>
+    </div>
+
+    <hr class="uk-divider-icon full-width">
+
+    {% include 'users/widgets/edit_user_form.html' %}
+</div>
+
+{% endblock content %}

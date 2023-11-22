@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Login {% endblock title %}
+
+{% block body %}
+
+<div uk-grid class="uk-margin-remove force-full-height">
+    <div class="uk-width-1-2 uk-flex uk-flex-center uk-flex-middle uk-flex-column secondary-color" style="
+        background-image: url('{% static 'images/background-01.jpg' %}');
+        background-position: center; 
+        background-repeat: no-repeat; 
+        background-size: cover;
+    ">
+        <img src="{% static 'images/logo.png' %}" alt="logo" width="200" height="200">
+        <div class="uk-text-center">
+            <h1 class="on-primary-color uk-text-uppercase uk-text-bold">Setor Responsável</h1>
+            <p class="on-primary-color">Plantando uma ideia para o bem de todos.</p>
+        </div>
+    </div>
+
+    <div class="uk-width-1-2 uk-flex uk-flex-center uk-flex-column uk-padding">
+        <h2>Entre com as suas credenciais</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="uk-margin">
+                <input class="uk-input" type="text" placeholder="Username" aria-label="Username" name="username">
+            </div>
+            <div class="uk-margin">
+                <input class="uk-input" type="password" placeholder="Password" aria-label="Password" name="password">
+            </div>
+            <button class="uk-button uk-button-primary">Entrar</button>
+        </form>
+    </div>
+</div>
+
+{% endblock body %}

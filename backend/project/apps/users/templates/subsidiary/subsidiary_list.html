@@ -1,0 +1,44 @@
+{% extends 'base_menu.html' %}
+{% load static %}
+
+{% block title %} Unidades {% endblock title %}
+
+{% block content %}
+
+<div class="uk-flex uk-flex-center uk-flex-middle uk-flex-column uk-margin-top">
+
+    <div class="uk-flex uk-flex-between full-width">
+        <h1>Unidades</h1>
+        <div>
+            <button uk-toggle="target: #my-id" type="button" class="uk-button">Adicionar</button>
+        </div>
+    </div>
+
+    <hr class="uk-divider-icon full-width">
+
+    <dl class="uk-description-list uk-description-list-divider full-width">
+        {% for subsidiary in subsidiaries %}
+        <div class="uk-flex">
+            <span uk-icon="icon: location; ratio: 2"></span>
+            <div class="uk-margin-left">
+                <dt><a href="{% url 'sectors' subsidiary.pk %}">{{ subsidiary.name }}</a></dt>
+                <dd>{{ subsidiary.sectors.count }} setores vinculados</dd>
+            </div>
+        </div>
+        <hr>
+        {% empty %}
+        <label>Nenhuma unidade cadastrada!</label>
+        {% endfor %}
+    </dl>
+</div>
+
+<div id="my-id" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body">
+        <h2 class="uk-modal-title">Adicionar Unidade</h2>
+
+        {% include 'subsidiary/widgets/subsidiary_form.html' %}
+
+    </div>
+</div>
+
+{% endblock content %}

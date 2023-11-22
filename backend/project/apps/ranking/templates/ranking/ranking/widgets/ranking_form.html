@@ -1,0 +1,46 @@
+<form method="post">
+    {% csrf_token %}
+
+    <fieldset class="uk-fieldset">
+
+        <div class="uk-margin">
+            <input class="uk-input" type="text" placeholder="Título" aria-label="Input" name="title"
+                id="title" value="{{ title }}">
+        </div>
+
+        <div class="uk-margin">
+            <input class="uk-input" type="text" placeholder="Descrição" aria-label="Input" name="description"
+                id="description" value="{{ description }}">
+        </div>
+
+        <div class="uk-margin">
+            <input class="uk-input" type="date" placeholder="Data inicial" aria-label="Input" name="initial_date"
+                id="initial_date" value="{{ initial_date }}">
+        </div>
+
+        <div class="uk-margin">
+            <input class="uk-input" type="date" placeholder="Data final" aria-label="Input" name="final_date"
+                id="final_date" value="{{ final_date }}">
+        </div>
+
+        <div class="uk-margin">
+            <select class="uk-select" name="social" id="social">
+                {% for social in social_actions %}
+                <option value="{{ social.id }}">{{ social.title }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="uk-margin">
+            <select class="uk-select" name="award" id="award">
+                {% for award in awards %}
+                <option value="{{ award.id }}">{{ award.title }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+    </fieldset>
+
+    <button class="uk-button" type="submit">Cadastrar</button>
+    <button class="uk-modal-close uk-button" type="button">Cancelar</button>
+</form>

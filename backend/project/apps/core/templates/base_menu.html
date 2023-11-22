@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}{% endblock title %}
+
+{% block body %}
+<div id="offcanvas-slide" uk-offcanvas>
+    <div class="uk-offcanvas-bar primary-color">
+
+        <ul class="uk-nav uk-nav-default">
+            <li class="uk-active"><a href="{% url 'index' %}">Home</a></li>
+            
+            <li class="uk-nav-header">Módulos</li>
+            <li><a href="{% url 'current_ranking' %}"><span class="uk-margin-small-right" uk-icon="icon: list"></span> Ranking</a></li>
+            <li class="uk-nav-divider"></li>
+            <li><a href="{% url 'subsidiaries' %}"><span class="uk-margin-small-right" uk-icon="icon: location"></span> Unidades</a></li>
+            <li class="uk-nav-divider"></li>
+            <li><a href="{% url 'increases' %}"><span class="uk-margin-small-right" uk-icon="icon: arrow-up"></span> Pontuações</a></li>
+            <li class="uk-nav-divider"></li>
+            <li><a href="{% url 'decreases' %}"><span class="uk-margin-small-right" uk-icon="icon: arrow-down"></span> Penalidades</a></li>
+
+            <li class="uk-nav-header">Configurações</li>
+            <li class="uk-parent">
+                <ul class="uk-nav-sub">
+                    <li><a href="{% url 'users' %}">Gerenciar usuários</a></li>
+                    <li><a href="{% url 'social_actions' %}">Ações sociais</a></li>
+                    <li><a href="{% url 'awards' %}">Gerenciar prêmios</a></li>
+                </ul>
+            </li>
+
+            <li class="uk-nav-header">Outros</li>
+            <li><a href="{% url 'logout' %}"><span class="uk-margin-small-right" uk-icon="icon: sign-out"></span>
+                    Encerrar sessão</a></li>
+        </ul>
+    </div>
+</div>
+
+<div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <nav class="uk-navbar-container" uk-navbar>
+        <div class="uk-padding uk-padding-remove-top uk-padding-remove-bottom">
+            <div uk-navbar>
+                <div class="uk-navbar-left">
+                    <a class="uk-navbar-toggle" href="#offcanvas-slide" uk-toggle>
+                        <span uk-navbar-toggle-icon></span> <span class="uk-margin-small-left">Menu</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<div class="uk-container">
+    {% block content %}
+    {% endblock content %}
+</div>
+
+{% endblock body %}

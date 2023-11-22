@@ -1,0 +1,96 @@
+{% extends 'base_menu.html' %}
+{% load static %}
+
+{% block title %} Ranking {% endblock title %}
+
+{% block content %}
+
+<div class="uk-flex uk-flex-center uk-flex-middle uk-flex-column uk-margin-top">
+
+    <div class="uk-flex uk-flex-between full-width">
+        <h1>
+            Ranking atual
+        </h1>
+        <div>
+            <a href="{% url 'rankings' %}" class="uk-button">Listar todos</a>
+        </div>
+    </div>
+
+    <hr class="uk-divider-icon full-width">
+
+    <h3 class="uk-card-title">Detalhes</h3>
+    <div class="uk-card uk-card-default uk-card-body uk-width-1-1@m uk-margin-bottom">
+        <div class="uk-flex">
+            <div class="uk-margin-right full-width">
+                <h2>Ranking</h2>
+                <hr>
+                <p class="uk-text-lead">{{ ranking.title }}</p>
+                <p>{{ ranking.description }}</p>
+                <p class="uk-text-meta">Válido de: {{ ranking.initial_date|date:'d/m/Y' }} à {{ ranking.final_date|date:'d/m/Y' }}</p>
+                <hr>
+                <p class="uk-text-lead">Benefício para o setor vencedor</p>
+                <p>
+                    {{ ranking.award.title }} <br>
+                    {{ ranking.award.description }}
+                </p>
+            </div>
+            <hr class="uk-divider-vertical" style="height: auto;">
+            <div class="full-width uk-margin-left">
+                <h2>Ação social selecionada</h2>
+                <hr>
+                <p class="uk-text-lead">{{ ranking.title }}</p>
+                <p>{{ ranking.description }}</p>
+            </div>
+        </div>
+    </div>
+
+    {% if actions.count > 0 %}
+    <h3 class="uk-card-title">Ações (Pontuações X Penalidades)</h3>
+    <div class="uk-card uk-card-default uk-card-body uk-width-1-1@m uk-margin-bottom">
+        {% for action in actions %}
+        <dl class="uk-description-list uk-description-list-divider">
+            <dt>{{ action.sector }}</dt>
+            <dd>
+                {% if action.score.identifier == 0 %}(+){% else %}(-){% endif %}
+                {{ action.score.name }} = {% if action.score.identifier == 0 %}<b>+</b>{% else %}<b>-</b>{% endif %}
+                {{ action.score.quantity }} ponto(s)</dd>
+        </dl>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if subsidiaries.count > 0 %}
+    <h3 class="uk-card-title">Setores envolvidos</h3>
+    {% for subsidiary in subsidiaries %}
+    <div class="uk-card uk-card-default uk-card-body uk-width-1-1@m uk-margin-bottom">
+        <div class="uk-card-badge uk-label">Unidade</div>
+        <h3 class="uk-card-title">{{ subsidiary.name }}</h3>
+
+        <dl class="uk-description-list uk-description-list-divider">
+            {% for sector in subsidiary.sectors.all %}
+            <dt>{{ sector.name }}</dt>
+            <dd>{{ sector.employeers.count }} colaborador(es)</dd>
+            <div class="uk-flex uk-margin">
+                <a href="{% url 'decrease_action' ranking.pk sector.pk %}" 
+                    class="uk-button uk-button-default">Remover Pontos</a>
+                <a href="{% url 'increase_action' ranking.pk sector.pk %}" 
+                    class="uk-button uk-button-default">Adicionar Pontos</a>
+            </div>
+            {% empty %}
+            Nenhum setor disponível
+            {% endfor %}
+        </dl>
+    </div>
+    {% endfor %}
+    {% endif %}
+</div>
+</div>
+
+<div id="my-id" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body">
+        <h2 class="uk-modal-title">Adicionar ação</h2>
+        {% include 'ranking/ranking/widgets/action_form.html' %}
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,52 @@
+<form method="post">
+    {% csrf_token %}
+
+    <fieldset class="uk-fieldset">
+        <legend class="uk-legend">Dados pessoais</legend>
+
+        <div class="uk-margin">
+            <input class="uk-input" type="text" placeholder="Nome" aria-label="Input" name="first_name" value="{{ employee.user.first_name }}" id="first_name">
+        </div>
+
+        <div class="uk-margin">
+            <input class="uk-input" type="text" placeholder="Sobrenome" aria-label="Input" name="last_name" value="{{ employee.user.last_name }}"
+                id="last_name">
+        </div>
+
+        <div class="uk-margin">
+            <input readonly class="uk-input" type="text" placeholder="Indentificador|Matricular" aria-label="Input" value="{{ employee.identifier }}">
+        </div>
+    </fieldset>
+
+    <fieldset class="uk-fieldset">
+        <legend class="uk-legend">Contato</legend>
+
+        <div class="uk-margin">
+            <input class="uk-input" type="text" placeholder="Contato" aria-label="Input" name="contact" value="{{ employee.contact }}" id="contact">
+        </div>
+
+        <div class="uk-margin">
+            <input class="uk-input" type="email" placeholder="E-mail" aria-label="Input" name="mail" value="{{ employee.user.email }}" id="mail">
+        </div>
+
+        <div class="uk-margin">
+            <select class="uk-select" aria-label="Select" name="sector" value="{{ employee.sector }}" id="sector">
+                {% for subsidiary in subsidiaries %}
+                <optgroup label="{{ subsidiary.name }}">
+                    {% for sector in subsidiary.sectors.all %}
+                    <option value="{{ sector.id }}" 
+                        {% if employee.sector == sector %} selected {% endif %}>
+                        {{ sector.name }}
+                    </option>
+                    {% endfor %}
+                </optgroup>
+                {% empty %}
+                <option value="0">---</option>
+                {% endfor %}
+            </select>
+        </div>
+    </fieldset>
+
+    <button class="uk-button" type="submit">Registrar</button>
+    <button class="uk-button" type="button">Cancelar</button>
+</form>
