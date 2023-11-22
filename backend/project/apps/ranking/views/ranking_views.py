@@ -2,9 +2,9 @@ from django.views.generic import View
 from django.contrib import messages
 from django.shortcuts import redirect, render
 from apps.core.utils import alert_levels
-from apps.ranking.models import Ranking, Award
+from apps.ranking.models import Ranking, Award, Action, Scores
 from apps.social.models import SocialAction
-from apps.users.models import Subsidiary
+from apps.users.models import Subsidiary, Sector
 
 
 class CurrentRanking(View):
@@ -124,5 +124,147 @@ class ListAllRankingsView(View):
             or (dt.get("social") is None or dt.get("social") == "")
             or (dt.get("award") is None or dt.get("award") == "")
         ):
+            return False
+        return True
+
+
+class IncreaseActionView(View):
+    def get(self, request, ranking_pk, sector_pk):
+        template_name = "ranking/score/action_sector.html"
+        rankings_query = Ranking.objects.filter(pk=ranking_pk)
+        sectors_query = Sector.objects.filter(pk=sector_pk)
+        if not rankings_query.exists() or not sectors_query.exists():
+            return redirect("rankings")
+
+        ranking = rankings_query.first()
+        scores = Scores.objects.filter(identifier=Scores.INCREASE)
+        context = {
+            "ranking": ranking,
+            "scores": scores,
+            "sector": sectors_query.first(),
+            "title": "Adicionar pontos",
+        }
+        return render(request, template_name, context)
+
+    def post(self, request, ranking_pk, sector_pk):
+        template_name = "ranking/score/action_sector.html"
+        rankings_query = Ranking.objects.filter(pk=ranking_pk)
+        sectors_query = Sector.objects.filter(pk=sector_pk)
+        if not rankings_query.exists() or not sectors_query.exists():
+            return redirect("rankings")
+
+        ranking = rankings_query.first()
+        sector = sectors_query.first()
+        scores = Scores.objects.filter(identifier=Scores.INCREASE)
+        context = {
+            "ranking": ranking,
+            "scores": scores,
+            "sector": sector,
+            "title": "Adicionar pontos",
+        }
+        data = request.POST
+
+        if not self.valid_data(dt=data):
+            messages.add_message(
+                request,
+                messages.WARNING,
+                "Formulário inválido",
+                extra_tags=alert_levels.WARNING,
+            )
+
+            return render(request, template_name, context)
+
+        self.register_action(ranking=ranking, sector=sector, data=data)
+        messages.add_message(
+            request,
+            messages.SUCCESS,
+            "Ação registrada",
+            extra_tags=alert_levels.SUCCESS,
+        )
+        return redirect("current_ranking")
+
+    def get_score(self, pk):
+        scores_query = Scores.objects.filter(pk=pk)
+        if scores_query.exists():
+            return scores_query.first()
+        return
+
+    def register_action(self, ranking, sector, data):
+        score = self.get_score(pk=data.get("score"))
+        Action.objects.create(ranking=ranking, sector=sector, score=score)
+
+    def valid_data(self, dt):
+        if dt.get("score") is None or dt.get("score") == "":
+            return False
+        return True
+
+
+class DecreaseActionView(View):
+    def get(self, request, ranking_pk, sector_pk):
+        template_name = "ranking/score/action_sector.html"
+        rankings_query = Ranking.objects.filter(pk=ranking_pk)
+        sectors_query = Sector.objects.filter(pk=sector_pk)
+        if not rankings_query.exists() or not sectors_query.exists():
+            return redirect("rankings")
+
+        ranking = rankings_query.first()
+        scores = Scores.objects.filter(identifier=Scores.DECREASE)
+        context = {
+            "ranking": ranking,
+            "scores": scores,
+            "sector": sectors_query.first(),
+            "title": "Remover pontos",
+        }
+        return render(request, template_name, context)
+
+    def post(self, request, ranking_pk, sector_pk):
+        template_name = "ranking/score/action_sector.html"
+        rankings_query = Ranking.objects.filter(pk=ranking_pk)
+        sectors_query = Sector.objects.filter(pk=sector_pk)
+        if not rankings_query.exists() or not sectors_query.exists():
+            return redirect("rankings")
+
+        ranking = rankings_query.first()
+        sector = sectors_query.first()
+        scores = Scores.objects.filter(identifier=Scores.DECREASE)
+        context = {
+            "ranking": ranking,
+            "scores": scores,
+            "sector": sector,
+            "title": "Remover pontos",
+        }
+        data = request.POST
+
+        if not self.valid_data(dt=data):
+            messages.add_message(
+                request,
+                messages.WARNING,
+                "Formulário inválido",
+                extra_tags=alert_levels.WARNING,
+            )
+
+            return render(request, template_name, context)
+
+        self.register_action(ranking=ranking, sector=sector, data=data)
+        messages.add_message(
+            request,
+            messages.SUCCESS,
+            "Ação registrada",
+            extra_tags=alert_levels.SUCCESS,
+        )
+        return redirect("current_ranking")
+
+    def get_score(self, pk):
+        scores_query = Scores.objects.filter(pk=pk)
+        if scores_query.exists():
+            return scores_query.first()
+        return
+
+    def register_action(self, ranking, sector, data):
+        score = self.get_score(pk=data.get("score"))
+        Action.objects.create(ranking=ranking, sector=sector, score=score)
+
+    def valid_data(self, dt):
+        if dt.get("score") is None or dt.get("score") == "":
             return False
         return True

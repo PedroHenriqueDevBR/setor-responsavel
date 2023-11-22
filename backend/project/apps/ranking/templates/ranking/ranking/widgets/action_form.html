@@ -1,0 +1,18 @@
+<form method="post">
+    {% csrf_token %}
+
+    <fieldset class="uk-fieldset">
+
+        <div class="uk-margin">
+            <select class="uk-select" name="score" id="score">
+                {% for score in scores %}
+                <option value="{{ score.id }}">{{ score.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+    </fieldset>
+
+    <button class="uk-button" type="submit">Cadastrar</button>
+    <button class="uk-modal-close uk-button" type="button">Cancelar</button>
+</form>

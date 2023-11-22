@@ -1,6 +1,7 @@
 from django.views.generic import View
 from django.contrib import messages
 from django.shortcuts import redirect, render
+from django.urls import reverse
 from apps.core.utils import alert_levels
 from apps.users.models import Subsidiary, Sector
 
@@ -111,7 +112,7 @@ class ListSectorView(View):
             "Setor adicionado",
             extra_tags=alert_levels.SUCCESS,
         )
-        return redirect("subsidiaries")
+        return redirect(f"/users/subsidiary/{pk}/sectors")
 
     def register_sector(self, data, subsidiary):
         name = data.get("name")

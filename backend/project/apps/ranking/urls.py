@@ -30,4 +30,15 @@ urlpatterns = [
         award_views.ListAwardsView.as_view(),
         name="awards",
     ),
+    # Actions
+    path(
+        "<int:ranking_pk>/sectors/<int:sector_pk>/increase",
+        ranking_views.IncreaseActionView.as_view(),
+        name="increase_action",
+    ),
+    path(
+        "<int:ranking_pk>/sectors/<int:sector_pk>/decrease",
+        ranking_views.DecreaseActionView.as_view(),
+        name="decrease_action",
+    ),
 ]
